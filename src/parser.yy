@@ -13,7 +13,7 @@
 
 %start input
 
-%token END QUIT
+%token END STOP
 %token ABS SQRT
 
 %token <str> IDENTIFIER
@@ -29,8 +29,9 @@ input
     ;
 
 statement
-    :   expr END                { gmp_printf("%Zd\n", $1); mpz_clear($1); }
-    |   QUIT                    { return (0); }
+    :   END
+    |   expr END                { gmp_printf("%Zd\n", $1); mpz_clear($1); }
+    |   STOP                    { return (0); }
     ;
 
 expr
@@ -66,6 +67,6 @@ function
 
 int    yyerror(char *s)
 {
-    fprintf(stderr, "%s\n", s);
+    // fprintf(stderr, "%s\n", s);
     return (0);
 }

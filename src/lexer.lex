@@ -37,12 +37,12 @@
 
 ";"                     { return (END); }
 "\n"                    { return (END); }
-<<EOF>>                 { return (END); }
+<<EOF>>                 { return (STOP); }
 
 "abs"                   { return (ABS); }
 "sqrt"                  { return (SQRT); }
 
-"quit"                  { return (QUIT); }
+"quit"                  { return (STOP); }
 
 [a-zA-Z_][a-zA-Z0-9_]*  { yylval.str = strdup(yytext); return (IDENTIFIER); }
 

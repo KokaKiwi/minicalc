@@ -38,7 +38,7 @@
       know about them.  */
    enum yytokentype {
      END = 258,
-     QUIT = 259,
+     STOP = 259,
      ABS = 260,
      SQRT = 261,
      IDENTIFIER = 262,
@@ -47,7 +47,7 @@
 #endif
 /* Tokens.  */
 #define END 258
-#define QUIT 259
+#define STOP 259
 #define ABS 260
 #define SQRT 261
 #define IDENTIFIER 262
