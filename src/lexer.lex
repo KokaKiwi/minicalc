@@ -11,15 +11,28 @@
 
 [ \t\r]+                { }
 
-[0-9]+                  { mpz_init(yylval.n); mpz_set_str(yylval.n, yytext, 10); return (NUMBER); }
+"0x"([0-9a-fA-F]+)      {
+                            char *number = strndup(yytext + 2, strlen(yytext) - 2);
+                            mpz_init_set_str(yylval.n, number, 16);
+                            free(number);
+                            return (NUMBER);
+                        }
+[0-9]+                  {
+                            mpz_init_set_str(yylval.n, yytext, 10);
+                            return (NUMBER);
+                        }
 
 "-"                     { return ('-'); }
 "+"                     { return ('+'); }
 "*"                     { return ('*'); }
 "/"                     { return ('/'); }
 "%"                     { return ('%'); }
+"|"                     { return ('|'); }
+"&"                     { return ('&'); }
+
 "("                     { return ('('); }
 ")"                     { return (')'); }
+
 "="                     { return ('='); }
 
 ";"                     { return (END); }
@@ -27,6 +40,7 @@
 <<EOF>>                 { return (END); }
 
 "abs"                   { return (ABS); }
+"sqrt"                  { return (SQRT); }
 
 "quit"                  { return (QUIT); }
 

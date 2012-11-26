@@ -37,19 +37,21 @@
    /* Put the tokens into the symbol table, so that GDB and other debuggers
       know about them.  */
    enum yytokentype {
-     QUIT = 258,
-     ABS = 259,
-     END = 260,
-     IDENTIFIER = 261,
-     NUMBER = 262
+     END = 258,
+     QUIT = 259,
+     ABS = 260,
+     SQRT = 261,
+     IDENTIFIER = 262,
+     NUMBER = 263
    };
 #endif
 /* Tokens.  */
-#define QUIT 258
-#define ABS 259
-#define END 260
-#define IDENTIFIER 261
-#define NUMBER 262
+#define END 258
+#define QUIT 259
+#define ABS 260
+#define SQRT 261
+#define IDENTIFIER 262
+#define NUMBER 263
 
 
 
@@ -67,7 +69,7 @@ typedef union YYSTYPE
 
 
 /* Line 2068 of yacc.c  */
-#line 71 "include/parser.h"
+#line 73 "include/parser.h"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
