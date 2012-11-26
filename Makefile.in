@@ -1,0 +1,67 @@
+##
+## Makefile.in for @PACKAGE_STRING@ in /home/hervie_g/epidev/projects/moulinette
+## 
+## Made by guillaume hervier
+## Login   <hervie_g@epitech.net>
+## 
+## Started on  Thu Nov 22 17:56:44 2012 guillaume hervier
+## Last update Thu Nov 22 17:56:51 2012 guillaume hervier
+##
+
+# Programs
+CC		    			:= @CC@
+INSTALL	    			:= @INSTALL@
+RM 		    			:= @RM@
+LEX 	    			:= @LEX@
+YACC	    			:= @YACC@
+
+# Flags
+CFLAGS	    			+= -Iinclude -O3
+LDFLAGS	    			+= -lgmp
+RMFLAGS	    			+= -rf
+LEXFLAGS				+= 
+YACCFLAGS				+= 
+
+# Some paths
+prefix					:= @prefix@
+exec_prefix				:= @exec_prefix@
+includedir				:= @includedir@
+bindir					:= @bindir@
+
+O 						:= .@OBJEXT@
+
+PSRCS					:= src/parser.c src/lexer.c
+SRCS					:= $(filter-out $(PSRCS), $(shell find src -type f -name "*.c"))
+OBJS					=  $(SRCS:.c=.o)
+
+NAME 					:= minicalc
+
+all:					$(NAME)
+
+$(NAME):				src/parser.o src/lexer.o $(OBJS)
+	$(CC) -o $(NAME) $^ $(LDFLAGS)
+
+src/parser.c:		src/parser.yy
+	$(YACC) $(YACCFLAGS) -o $@ --defines=include/parser.h src/parser.yy
+
+src/lexer.c:		src/lexer.lex
+	$(LEX) $(LEXFLAGS) -o $@ src/lexer.lex
+
+%.o:					%.c
+	$(CC) $(CFLAGS) -c -o $@ $^
+
+clean-parser:
+	$(RM) $(RMFLAGS) src/parser.c src/lexer.c include/parser.h
+
+clean:					clean-parser
+	$(RM) $(RMFLAGS) $(OBJS)
+
+fclean:					clean
+	$(RM) $(RMFLAGS) $(NAME)
+
+re:						fclean all
+
+install:				$(NAME)
+	$(INSTALL) $(NAME) $(bindir)
+
+.PHONY:					all clean-parser clean fclean re install
