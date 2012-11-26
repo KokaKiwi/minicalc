@@ -31,6 +31,7 @@ input
 statement
     :   END
     |   expr END                { gmp_printf("%Zd\n", $1); mpz_clear($1); }
+    |   error END
     |   STOP                    { return (0); }
     ;
 
@@ -56,6 +57,7 @@ factor
     |   '(' expr ')'            { mpz_init_set($$, $2); mpz_clear($2); }
     |   function                { mpz_init_set($$, $1); mpz_clear($1); }
     |   '-' factor              { mpz_init($$); mpz_neg($$, $2); mpz_clear($2); }
+    |   '+' factor              { mpz_init_set($$, $2); mpz_clear($2); }
     ;
 
 function
@@ -67,6 +69,6 @@ function
 
 int    yyerror(char *s)
 {
-    // fprintf(stderr, "%s\n", s);
+    fprintf(stderr, "%s\n", s);
     return (0);
 }

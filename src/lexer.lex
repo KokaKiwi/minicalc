@@ -46,7 +46,7 @@
 
 [a-zA-Z_][a-zA-Z0-9_]*  { yylval.str = strdup(yytext); return (IDENTIFIER); }
 
-.                       { ECHO; yyerror("unexpected character."); }
+.                       { yyerror("unexpected character."); }
 
 %%
 
