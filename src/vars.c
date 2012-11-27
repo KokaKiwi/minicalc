@@ -103,7 +103,6 @@ void        var_set(char *name, mpz_t n)
     {
         mpz_set(var->n, n);
     }
-    free(name);
 }
 
 void        var_get(char *name, mpz_t n)
@@ -115,5 +114,4 @@ void        var_get(char *name, mpz_t n)
     {
         mpz_set(n, var->n);
     }
-    free(name);
 }

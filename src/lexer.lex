@@ -5,6 +5,12 @@
 #include <gmp.h>
 #include "parser.h"
 #include "config.h"
+
+#define YY_INPUT(buf, result, max_size) \
+    { \
+        int c = getchar(); \
+        result = (c == EOF) ? YY_NULL : (buf[0] = c, 1); \
+    }
 %}
 
 %%
@@ -29,6 +35,14 @@
 "%"                     { return ('%'); }
 "|"                     { return ('|'); }
 "&"                     { return ('&'); }
+"?"                     { return ('?'); }
+":"                     { return (':'); }
+"<="                    { return (LE_OP); }
+">="                    { return (GE_OP); }
+"=="                    { return (EQ_OP); }
+"!="                    { return (NE_OP); }
+"<"                     { return ('<'); }
+">"                     { return ('>'); }
 
 "("                     { return ('('); }
 ")"                     { return (')'); }
@@ -41,6 +55,7 @@
 
 "abs"                   { return (ABS); }
 "sqrt"                  { return (SQRT); }
+"rand"                  { return (RAND); }
 
 "quit"                  { return (STOP); }
 
